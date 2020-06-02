@@ -327,6 +327,7 @@
   position: relative;
   animation: splash 2s forwards ease-out;
   }
+  
   header #title {
   background: transparent url("../images/1.jpg") center center no-repeat;
   background-size: cover;
@@ -335,7 +336,7 @@
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 10rem);
+  min-height: 100vh;
   padding: 5rem 0;
   }
   header #title h1 {
@@ -409,7 +410,8 @@
       line-height: 2rem;
       letter-spacing: 1px;
     }
-  
+    
+    header #title h1.header_h1{font-size: 130px;}
   
   
   footer {
@@ -979,4 +981,5 @@
       .pic1, .pic2{max-width: 100%;}
       p{padding:0 1rem;}
       .col-sm-6.right{margin-right: 0; padding-right: 0;}
+      header #title h1.header_h1{font-size: 60px; line-height: 100px; width: 100%;}
 }
