@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卡车超载</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/TweenMax.min.js"></script>
+    <script src="js/ScrollMagic.min.js"></script>
+    <script src="js/animation.gsap.min.js"></script>
+    <script src="js/debug.addIndicators.min.js"></script>
+    <script src="js/d3.v3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/main.css">
+    <!-- <script src='js/map.js'></script> -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+    <!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+<style>
+	p{
+		text-indent: 2em;
+		font-family:"微软雅黑";
+	}
+	
+	</style>
+<body>
+	<!-- 这是标题 -->
+	<header>
+		<div id="title">
+			<h1 style="font-size: 130px">卡车超载<span>利益的角逐与较量</span></h1>
+			
+			<!-- <div id="scroller" title="Scroll Down"></div> -->
+		</div>
+	</header>
+	
+	
+	<!--这是内容-->
+	<main>
+	<!--导语-->
+    <div class="section">
+		<br>
+		<p><span class="highlight">“所有开货车的，我估计百分之九十都有过（超载）。”</span>广东揭阳的卡车司机王世欢在帖子中写道，“我也有过超载。”</p>
+		<p>2019年10月10日，无锡一高架桥因货车超载而发生侧翻，造成3人死亡，2人受伤。10月15日，某卡车司机实名制线上社区发起了“关于超载，我有话说”的话题，王世欢等近两千名卡车司机在该话题下发帖及评论。</P>
+		<br>
+		<img class="pic1" src="images/774821355949654059.jpg">
+		<p style="font-family: '楷体';text-align: left;font-size: 10px">10·10无锡高架桥侧翻事故现场  图片来源：IC photo</p>
+		<br>
+		<p>在这些帖子中，卡车司机们一方面深知超载给自身和社会带来的危险，表示不应超载、不想超载，另一方面也试图用自己的工作经验和所见所闻去“合理化超载”。</p>
+		<p>正如潘长福等卡车司机所质问的，<span class="highlight">“是社会有问题，是市场有问题，还是司机群体有问题？一谓（味）的把鞭子打在司机头上，公平吗？”</span></p>
+		<br>
+		<br>
+	</div>
+		
+		
+<!--第一部分：运价，市场的规律-->
+	<header>
+		<!-- 标题 -->
+		<div id="title">
+			<h1>运价:市场的规律</h1>
+			<!-- <div id="scroller" title="Scroll Down"></div> -->
+		</div>
+		<!-- 导语 -->
+		<div id="lead">
+			<p style="font-family: '楷体';text-align: left;color:#EAE4E6">"不超没钱。"南通卡车司机杨兴家在“关于超载，我有话说”的话题下，发了这四个字。浏览各个卡车司机社区，会发现“不超载就不赚钱”不仅仅是杨兴家的个人看法，而是不少司机持有的观点。</p>
+		</div>
+	</header>
+	<br>
+    <br>
+    
+    <div class="main_wp">
+        <div class="col-sm-6 left" style="float: left">
+            <p><span class="highlight">“运费低”是各平台的卡车司机们普遍提到的一个超载原因。</span></p>
+     
+             <p>1949年以来，我国公路货运价格的制定先后经历了三个阶段：运价统一管理阶段、“以国家计划为主、市场调节价为辅”阶段和市场定价阶段。目前，除了个别货物外，我国的货运价格基本由市场进行调节，国家主要发挥宏观调控的作用。
+         </p>
+         <p>若将近年来运价变化与物价变化作比较，会发现<span class="highlight">随着物价的上升，运价并没有随之增长，反而呈现下降趋势。</span>沈阳宋师傅表示，2012年长春到成都的运费是23000元到25000元，而2017年的运费已经下降到了20000元。</p>
+     </div>
+         <div class="col-sm-6 right" style="float:left">
+     <img style="padding: 10px" src="images/pic1-01.png">
+ </div>
+ <div style="clear:both"></div>
+ <br>
+ <div class="col-sm-6 left" style="float: left">
+    <img style="padding: 10px" src="images/pic2-01.png">
+</div>
+
+<div class="col-sm-6 right" style="float:left">
+    <p>唐山卡车司机李东海从事货运行业近二十年，他将这种现象的原因归结为<span class="highlight">货运市场的“供大于求”</span>:“庄里年轻的男的现在有几个在家啊，要不出去打工，要不就都出去拉货去了。车忒多，你不拉他拉，不像前几年好跑了。” 
+        </p>
+        <p>货运市场繁荣时期，司机们可以挑货、拣货，选择价格合适的货物去拉；但随着近年来卡车数量的快速增长，货运市场已近饱和，<span class="highlight">平均每辆车能够拉到的货物量呈降低趋势。</span>
+        </p>
+    <p>由于车多货少，司机们在市场中的议价地位也逐渐式微，往往处于一种“到处找货”的状态，甚至“见货就拉”。在这种情况下，恶性竞争不可避免地出现，超载就是其中之一。</p>
+</div>
+<div class="clear:both"></div>
+    </div>
+
+
+	<div class="section">
+		<br>
+	 <p>司机通过超载，无意中将成本转移给了社会来承担：道路运营年限缩短，交通事故增多，货运量流失……有学者尝试估计超载造成的经济损失，发现每吨超载货物运输一千米的社会经济损失达0.402元。而社会却没有办法将超载带来的成本转移给货主，价格传导在这一环失效，最终形成了<span class="highlight">“运价越低，超载越严重；超载越严重，运价越低”</span>的恶性循环。
+	   </p>
+	   <p>已经有不少司机感受到了这一恶性循环的存在，希望整个卡车司机群体可以团结起来，抵制超载。四平市卡车司机郑秋壮在帖子中写道：“全国都在查超载，我们能不能借这个机会，慢慢的形成一种习惯，就是不超载，然后借助群体的力量，让运费调上来呢？毕竟拉标吨的安全系数还是高一点，养车不容易呀！”
+	   </p>
+	<br>
+		<br>
+	</div>
+    
+
+<!--第二部分：成本，浮动中缺失的安全感-->
+	<header>
+		<!-- 标题 -->
+		<div id="title">
+			<h1>成本：缺失的安全感</h1>
+			<!-- <div id="scroller" title="Scroll Down"></div> -->
+		</div>
+		<!-- 导语 -->
+		<div id="lead"><p style="font-family: '楷体';text-align: left;color:#EAE4E6">“要是碰上你倒霉，也不挣钱。这罚点，那花点，吃喝拉撒，这事那事，反正出门就是钱。”——卡车司机李东海</p></div>
+	</header>
+<div class="section">
+	<br>
+        <p>李东海表示，<span class="highlight">每次跑车的成本具有很大的随机性，往往是出发之前难以准确计算的。</span>
+		<p>一是支出项目难以预计。通常情况下，每次运输的花销主要体现在油费、过路过桥费、罚款和生活费用上面。但是在运输过程中，不可预期的道路限行、车辆磨损、出现事故、偷油偷货等情况随时可能成为新的支出项目，使得他们的预期收入大打折扣。</p>
+		<p>二是每项支出数额难以预计。油费、过路过桥费、罚款和生活费用与司机选择的路线、路况、运气等很多因素相关，司机在出发之前对于这些支出会有预期，但是无法算出具体的数额。</p>
+	</div>
+	
+	<div class="chengben">
+        <p align="center" style="color: #CC9900;font-size: 18px">油费和过路过桥费是最主要的两项支出</p>
+		<p style = "text-align: left;font-size: 15px;font-family: '楷体'">点击查看具体数据</p>
+			<div id="container" style="height: 100%;text-align: center;padding-bottom: 0"></div>
+		<p align="left" style="margin-top: 0;font-size:10px">数据来源：《中国卡车司机调查报告》NO.1</p>
+    </div>
+	<div class="scroll"></div>
+	<br>
+    <div class="section"> <p>对全国卡车司机进行问卷调查后发现，2016年，油费和过路过桥费是我国卡车司机最主要的两项支出。长期以来，<span class="highlight">由于这两项支出数额较大且无法避免，为一些违法产业和灰色收入提供了条件。</span></p></div>
+    <div class="main_wp900">
+        <div class="chengben left" style="float:left;text-align: left">
+            <h4>小油与偷油</h4>
+           <p>为了节省成本，一些司机选择去私人加油站加“小油”。“小油”的需求催生了汽油、柴油的私人倒卖，一些倒卖者甚至冒着违法犯罪的风险去服务区偷油。不少司机在路上都遇到过“偷油”行为，这也是他们路途中难以预计的支出之一。</p>
+           <p>“在服务区睡觉，丢过三四回油。” 淄博梁师傅说，“从这个高速口上去，过两三个服务区，一宿能偷一万块钱的油。没人管，发现了也不能下车，下车揍死你。”</p>
+       </div>
+       <div class="chengben right" style="float: right;text-align: left">
+            <h4>各种各样的罚款</h4>
+            <p>我国一些地区存在着随意设卡、收费繁多、罚款去向不明等问题，有些甚至出现了“年票”“月票”，只要先花一定数目的钱从执法部门购买“年票”“月票”，就可以明目张胆地超载。</p>
+           <p>带车黄牛是公路收费中经常出现的一种角色，他们向卡车司机收取一定费用，帮助司机抵消超载扣分或规避更多的罚款。在卡车司机社区寻找黄牛的帖子下，许多卡车司机给出了答案：“交警队门口的商店老板”“停车场看门的”“卖烟卖水的”“去车管所附近溜达一圈黄牛就会找你”。</p>
+           <br>
+       </div>
+       <div style="clear:both"></div>
+    </div>
+
+
+	<div class="section" style="position: inherit">
+	<p>此外，<span class="highlight">一些非常规的支出事项也会对卡车司机收入产生重大影响。</span>交通事故就是其中一例。卡车司机交通事故的发生率并不高，2016年，发生过1次交通事故的卡车司机占9.4%，发生2次及以上的卡车司机占4.9%。但交通事故的损失通常比较惨重，一次事故可能就会葬送司机的职业生涯甚至生命。</p>
+	<p>今年7月，李东海出了一场车祸。从石家庄回唐山的路上，他的卡车与另一辆卡车相撞，身体多处骨折，住进了医院。谈及这件事，他最痛心的不是自己受了伤，而是“卡车报废了”。</p>
+	<p>“我快五十了，再想从头开始，没那个体力了。”</p>
+	<p>路况的多变和成本的不确定性，使得卡车司机每趟拉货的收益难以达到预期，未来的生活也难以得到保障。在这种情况下，超载作为一种增加收入的方式，成为一些卡车司机的选择。</p>
+		<br><br>
+	</div>
+
+<!--第三部分：超载，未来会好吗？-->
+   <header>
+		<!-- 标题 -->
+		<div id="title">
+			<h1>治超：未来会好吗？</h1>
+			<!-- <div id="scroller" title="Scroll Down"></div> -->
+		</div>
+		<!-- 导语 -->
+		<div id="lead">
+		<p style="font-family: '楷体';text-align: left;padding-top: 50px;color:#EAE4E6">“现在抓到超载车后先卸载，然后交警处罚。现在是一超四罚，罚司机、罚承运人、罚装载企业、罚货运企业。”——路政大队长何达</p>
+		</div>
+	</header>
+    <div class="section">
+		<br>
+    <h3 style="text-align: center"><span style="font-weight: bolder">治超，还需治本</span></h3>
+		<p>无锡事故之后，各地治超力度骤然加大，运价出现不同程度的上升。</p>
+		<p>据媒体报道，高架桥事故后，执法部门严查超载，有些公司从江阴到无锡市区的短途钢材运价由8元一吨涨到30多元一吨，涨了三四倍，钢材也或将面临涨价。</p>
+		<p>运价上涨背后，是<span class="highlight">我国物流成本的居高不下。</span>2018年，中国社会物流总费用达283.1万亿元，占GDP的14.8%，而发达国家的物流成本一般占GDP的10%左右。长期以来，较高的物流成本被超载“吸收”，未能体现在下游市场的货物价格上。如今治超力度加大，物流成本压力从卡车司机转移到了货主，货物价格在一定时间内的波动在所难免。至于货价上升是否会反过来推动新一轮的超载，还是促使物流成本下降，还不得而知。</p>
+		<p>有学者认为，<span class="highlight">物流成本较高的根源是我国运输结构与产业结构的不匹配。</span></p>
+		<p>2018年，我国一、二、三产业占GDP比重分别约为8%，41%和51%。其中第二产业占比高于所有发达国家<span style="font-family: '楷体'">（点击“发展中国家和地区”图例，查看更清楚）</span>，在发展中国家中也处于中等偏上的位置。</p></div>
+    <div class="GDP_sector">
+		<p align="center" style="color: #CC9900;font-size: 18px">2018年世界主要国家和地区三大产业占GDP比重</p>
+		<p style = "text-align: left;font-size: 15px;font-family: '楷体'">点击图例标签，删除相应数据</p>
+			<div id="GDP_sector" style="height: 100%"></div>
+		<p align="left" style="font-size: 10px">数据来源：美国中央情报局</p>
+    </div>
+	<div class="zuduan"></div>
+    <div class="section">
+		<br>
+		<p>第二产业是对运输依赖性较强的产业，运输工具的选择会对生产成本产生较大影响。一般来说，铁路、水运等大型运输工具，成本较低，适合大型货物的运输。</p>
+		<p>然而<span class="highlight">我国铁路和水运货运能力一直落后于公路。</span>2018年我国公路完成货运量395.69亿吨，铁路完成货物总发送量40.26亿吨，水运完成货运量70.27亿吨，铁路和水运两者加和不及公路货运量，运力难以满足货运需求。一些适合用铁路、水运运输的货物只能用公路运输，提高了物流成本的同时，也增加了超载的风险。</p>
+		<p>不过，国家已经注意到了这一问题的存在，近年频繁提到“公转铁”，把运输结构调整提上日程。唐山就是一个例子。</p>	
+    </div>
+        <div id="trigger1"></div>
+        <div id="pin1">
+            <div style="position: absolute"><img src="images/tielu2-01.png" style="width:100%;float:left" class="before_2"></div>
+            <div style="position: absolute"><img src="images/tielu1-01.png" style="width:100%;float:left" class="before_1"></div>
+        </div>
+        <div id="pin1_words">
+            <h4>1</h4>
+			<img class="mobile resize" style="padding: 0px;margin-left: 50px" src="images/tielu1-01.png">
+            <br>
+			<br>
+			<p>唐山是典型的以第二产业为主的城市，其中钢铁产业尤为突出。产业内容决定了唐山卡车司机拉载的货物以钢和生产钢的原材料（煤、矿石等）为主，超载现象一度比较严重。</p>
+			<br>
+		   <p>何达在唐山某地做了二十多年的路政大队长，他告诉记者，唐山货运路线主要有两种。一是从外地将钢的原材料运往唐山，如从新疆、内蒙和山西运输煤炭，从港口运输原材料等；二是将钢铁产品运出唐山，如运到东北、新疆、山东等。在铁路运力不足的时期，这些主要靠卡车司机一车一车地运输。</p>
+			<br>
+			<br>
+            <div id="trigger2"></div>
+			<h4>2</h4>
+			<img class="mobile resize" style="padding: 0px;margin-left: 50px" src="images/tielu2-01.png">
+			<br>
+			<br>
+		    <p>为响应国家“公转铁”政策，也是出于环境保护考虑，2010年后，唐山附近修建多条货运线路，部分分担了公路货运量，降低了运输成本，也缓解了超载问题。</p>
+			<br>
+		    <p>何达表示，目前长途运输的卡车基本上都是标载，“去往秦皇岛等周边市区的短途运输超载多一点。”</p>
+		    <br>
+			<p>“公转铁”后，作为铁路运输“最后一公里”的卡车，在短途运输中的超载行为，还需要进一步加以治理。</p>
+	        <br>
+			<div id="trigger3"></div>
+			<div id="trigger100"></div>
+    </div>
+	<div class="scroll"></div>
+    <div class="section">
+		<br>
+		<br>
+		<h3 style="text-align: center">治超，一直在努力</h3>
+        <p><span class="highlight">对超限超载，我国上世纪80年代起就开始着手治理，规章制度经过多次调整也逐渐完善。</span>特别是2016年9月21日出台的《超限运输车辆行驶公路管理规定》，统一了超载标准，提出“路警联合”、“一超四罚”等措施，逐步与国际接轨。</p>
+		<p>近些年，国家对于治超执法问题也越来越重视。2018年11月，国家出台了《关于深化交通运输综合行政执法改革的指导意见》，将路政、运管等 7个路面执法机构合成一支队伍，清理编外人员，并将执法经费纳入财政，杜绝罚款与收入挂钩，从而有效避免了以往治超执法中的乱收费、重复收费、互相推诿等问题。</p>
+		<p>“原来有罚款是因为各地经费自收自支，以罚款养人，现在人员经费都由财政负担了，罚款都交给国家。”何达表示，目前治超工作不再有罚款任务，而是通过抽测超载率来衡量工作质量。</p>
+		<p><span class="highlight">此外，科技治超与人力治超的有机结合，也对超载治理起到了一定的推动作用。</span>“唐山建了很多不停车监测系统，能够显示从上面驶过的车辆重量。显示超的，前面有治超人员就会把它截停，直接去卸载场过泵去了。”</p>
+		<p>目前，我国的超载情况虽然时有反弹，但整体上有所好转。在openlaw网站中检索有关超载的法律文书，发现自2016年底“921新政”实施以来，有关超载的案件数量明显下降。2017年该网站共收录关于超载的裁判文书29791份，2019年（截至12月）已下降到15376份。何达在接受采访时也多次表示，唐山要在年底建成无超限超载城市，目前的治超效果已经相当明显。</p>
+	</div>
+	<div class="section">
+		<h3 style="text-align: center">结语</h3>
+		<p>超载，未来会好吗？</p>
+		<p>何达认为会。“唐山在河北做的承诺是到年底消除百吨王，现在效果相当好了。”</p>
+		<p>李东海认为会。“超载说白了，就是人贪心，素质没上去。其他说什么理由都没用。提高素质得有个过程，慢慢的就好了。”</p>
+		<p>“在“关于超载，我有话说”话题下发帖的卡车司机也认为会。</p>
+		<p>“我希望治超越严厉越好，都能正常地装载货物。只有这样我们的运费才能往上提一点。”</p>
+		<p>“还是不超载的好，生命只有一次……开车挣多少钱都没关系，只要我们能平平安安地每一天回家。”</p>
+		<p>“从源头整治超载，还司机一个绿色的天空！”</p>
+		<p>“我就说我没超过载……超过十吨的货我连问都不问，不拉！”</p>
+		<p>……</p>
+		<img class="pic2" src="images/zuihou3.jpg">
+		<p style="font-size: 10px;">“关于超载，我有话说”话题下的帖子节选，大部分司机都表达了对于严格治超、消除超载的期待。</p>
+		
+    </div>
+	
+    </main>
+    <!--以下为footer-->
+    <div class='clear'>
+    <div class="section" style="margin-top:50px">
+		<p style="font-family: '楷体';color: gray;text-align: left">文中王世欢、潘长福、杨兴家、李东海、郑秋壮、何达均为化名</p>
+    </div>
+
+    <div class="section">
+        <p style='text-align: center;font-size: 14px;color:gray;padding-top: 100px'>
+            ◎作者：禁止吸烟 </p>
+    </div>
+
+
+    <script>
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger1",
+                        duration: 1300,
+                        //offset: 300,
+                        triggerHook: 0.05,
+                    })
+                    .setPin("#pin1")
+                    // .addIndicators({
+                    //     name: "1"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger2",
+                        triggerHook: 0.1,
+                    })
+                    .setClassToggle(".before_1", "after")
+                    // .addIndicators({
+                    //     name: "2"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger3",
+                        triggerHook: 0.2,
+                    })
+                    .setClassToggle(".before_2", "after")
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger4",
+                        triggerHook: 0.2,
+                    })
+                    .setClassToggle(".before_3", "after")
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger100",
+                        triggerHook: 0.2,
+                    })
+                    .setClassToggle(".before_4", "after")
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger5",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setPin("#pin2")
+                    // .addIndicators({
+                    //     name: "part 1"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var flightpath = {
+                    entry: {
+                        type: 'soft',
+                        curviness: 2.2,
+                        autoRotate: true,
+                        values: [{
+                            x: 0,
+                            y: 0
+                        }, {
+                            x: 150,
+                            y: 0
+                        }, {
+                            x: 200,
+                            y: -100
+                        }, {
+                            x: 190,
+                            y: -105
+                        }, ]
+                    }
+
+                };
+                // init controller
+                var controller = new ScrollMagic.Controller();
+                // create tween
+                var tween = new TimelineMax()
+                    .add(TweenMax.to($("#ship"), 3, {
+                        css: {
+                            bezier: flightpath.entry
+                        },
+                        ease: Power1.easeInOut
+                    }));
+
+                // build scene
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger5",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setTween(tween)
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger6",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setPin("#pin3")
+                    // .addIndicators({
+                    //     name: "part 2"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var flightpath = {
+                    entry: {
+                        type: 'soft',
+                        curviness: 2.2,
+                        autoRotate: true,
+                        values: [{
+                            x: 0,
+                            y: 0
+                        }, {
+                            x: 50,
+                            y: -50
+                        }, {
+                            x: 50,
+                            y: -120
+                        }, {
+                            x: 0,
+                            y: -200
+                        }, {
+                            x: -10,
+                            y: -200
+                        }]
+                    }
+
+                };
+                // init controller
+                var controller = new ScrollMagic.Controller();
+                // create tween
+                var tween = new TimelineMax()
+                    .add(TweenMax.to($("#ship_2"), 3, {
+                        css: {
+                            bezier: flightpath.entry
+                        },
+                        ease: Power1.easeInOut
+                    }));
+
+                // build scene
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger6",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setTween(tween)
+                    .addTo(controller);
+            }
+        });
+
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger7",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setPin("#pin4")
+                    // .addIndicators({
+                    //     name: "5"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var flightpath = {
+                    entry: {
+                        type: 'soft',
+                        curviness: 1.2,
+                        autoRotate: true,
+                        values: [{
+                            x: 0,
+                            y: 0
+                        }, {
+                            x: 10,
+                            y: -10
+                        }, {
+                            x: 0,
+                            y: -130
+                        }, {
+                            x: 100,
+                            y: -150
+                        }, {
+                            x: 240,
+                            y: -140
+                        }, {
+                            x: 241,
+                            y: -150
+                        }]
+                    }
+
+                };
+                // init controller
+                var controller = new ScrollMagic.Controller();
+                // create tween
+                var tween = new TimelineMax()
+                    .add(TweenMax.to($("#ship_3"), 3, {
+                        css: {
+                            bezier: flightpath.entry
+                        },
+                        ease: Power1.easeInOut
+                    }));
+
+                // build scene
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger7",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setTween(tween)
+                    .addTo(controller);
+            }
+        });
+        // $(function() {
+        //     var controller = new ScrollMagic.Controller();
+        //     var scene = new ScrollMagic.Scene({
+        //             triggerElement: "#trigger6",
+        //             triggerHook: 0.1,
+        //         })
+        //         .setClassToggle(".before_map", "after_map")
+        //         // .addIndicators({
+        //         //     name: "hidden"
+        //         // })
+        //         .addTo(controller)
+        //         .on("enter", function() {
+        //             scene = scene.destroy();
+        //         });
+        // });
+		
+    </script>
+ <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+app.title = '货运成本';
+
+
+option = {
+    color: [ '#ca8622','#CC9900','#BFBB73','#997300', '#546570','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83', '#c4ccd3'],
+    angleAxis: {
+        axisLine:{lineStyle:{
+            color: '#CCCCCC'
+        }},
+    axisLabel:{
+        textStyle: {
+            color:'#404040'
+            }},
+        type: 'category',
+        data: ['牵引车', '重卡', '中卡', '轻卡', '其他'],
+        z: 10
+    },
+    radiusAxis: {
+        name: '（万元）',
+        nameGap:8
+    },
+    polar: {
+    },
+    tooltip: {
+        show: true,
+        formatter:"{a0}: {c0}万元",
+        backgroundColor: '#D9D3C4',
+        textStyle: {
+            color: '#546570'
+        }
+    },
+    series: [{
+        type: 'bar',
+        data: [19.20,8.37,4.99,3.30,6.18],
+        coordinateSystem: 'polar',
+        name: '油费',
+        stack: 'a'
+    }, {
+        type: 'bar',
+        data: [9.13,3.44,2.13,1.13,1.22],
+        coordinateSystem: 'polar',
+        name: '过桥过路费',
+        stack: 'a'
+    },{
+        type: 'bar',
+        data: [1.91,0.97,0.67,0.56,1.06],
+        coordinateSystem: 'polar',
+        name: '维修与保养费',
+        stack: 'a'
+    }, {
+        type: 'bar',
+        data: [0.36,0.28,0.25,0.18,0.19],
+        coordinateSystem: 'polar',
+        name: '罚款',
+        stack: 'a'
+    },{
+        type: 'effectScatter',
+        data: [30.6,13.06,8.03,5.18,8.65],
+        coordinateSystem: 'polar',
+        name: '总计',
+    }],
+    legend: {
+        show: true,
+        data: ['油费', '过桥过路费', '维修与保养费','罚款','总计']
+    }
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+<script type="text/javascript">
+var dom = document.getElementById("GDP_sector");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+// Schema:
+// date,AQIindex,PM2.5,PM10,CO,NO2,SO2
+var datafz = [
+[9474000 ,0.15 ,0.23 ,0.62 ,'发展中国家和地区'],
+[4016000 ,0.05 ,0.32 ,0.62 ,'发展中国家和地区'],
+[3250000 ,0.14 ,0.41 ,0.45 ,'发展中国家和地区'],
+[3248000 ,0.07 ,0.21 ,0.73 ,'发展中国家和地区'],
+[2463000 ,0.04 ,0.32 ,0.65 ,'发展中国家和地区'],
+[2186000 ,0.07 ,0.32 ,0.61 ,'发展中国家和地区'],
+[1775000 ,0.03 ,0.44 ,0.53 ,'发展中国家和地区'],
+[1640000 ,0.10 ,0.35 ,0.55 ,'发展中国家和地区'],
+[1236000 ,0.08 ,0.36 ,0.56 ,'发展中国家和地区'],
+[1204000 ,0.12 ,0.34 ,0.54 ,'发展中国家和地区'],
+[1126000 ,0.02 ,0.40 ,0.57 ,'发展中国家和地区'],
+[1121000 ,0.21 ,0.23 ,0.56 ,'发展中国家和地区'],
+[1061000 ,0.24 ,0.19 ,0.57 ,'发展中国家和地区'],
+[933300 ,0.09 ,0.38 ,0.54 ,'发展中国家和地区'],
+[922100 ,0.11 ,0.28 ,0.61 ,'发展中国家和地区'],
+[877200 ,0.10 ,0.31 ,0.60 ,'发展中国家和地区'],
+[767200 ,0.03 ,0.30 ,0.68 ,'发展中国家和地区'],
+[711600 ,0.07 ,0.31 ,0.62 ,'发展中国家和地区'],
+[696000 ,0.01 ,0.50 ,0.49 ,'发展中国家和地区'],
+[690300 ,0.14 ,0.29 ,0.57 ,'发展中国家和地区'],
+[649300 ,0.03 ,0.51 ,0.46 ,'发展中国家和地区'],
+[648700 ,0.15 ,0.33 ,0.51 ,'发展中国家和地区'],
+[630000 ,0.13 ,0.39 ,0.47 ,'发展中国家和地区'],
+[483400 ,0.04 ,0.33 ,0.63 ,'发展中国家和地区'],
+[478600 ,0.05 ,0.34 ,0.61 ,'发展中国家和地区'],
+[452100 ,0.04 ,0.33 ,0.63 ,'发展中国家和地区'],
+[430300 ,0.08 ,0.33 ,0.60 ,'发展中国家和地区'],
+[381600 ,0.05 ,0.40 ,0.55 ,'发展中国家和地区'],
+[369600 ,0.12 ,0.29 ,0.60 ,'发展中国家和地区'],
+[339500 ,0.00 ,0.50 ,0.50 ,'发展中国家和地区'],
+[329800 ,0.24 ,0.36 ,0.40 ,'发展中国家和地区'],
+[298600 ,0.14 ,0.30 ,0.57 ,'发展中国家和地区'],
+[289700 ,0.00 ,0.59 ,0.41 ,'发展中国家和地区'],
+[289600 ,0.04 ,0.31 ,0.65 ,'发展中国家和地区'],
+[275800 ,0.08 ,0.31 ,0.62 ,'发展中国家和地区'],
+[223000 ,0.18 ,0.34 ,0.49 ,'发展中国家和地区'],
+[200600 ,0.35 ,0.22 ,0.44 ,'发展中国家和地区'],
+[193600 ,0.10 ,0.61 ,0.28 ,'发展中国家和地区'],
+[193000 ,0.07 ,0.33 ,0.60 ,'发展中国家和地区'],
+[190100 ,0.02 ,0.46 ,0.52 ,'发展中国家和地区'],
+[179400 ,0.08 ,0.41 ,0.51 ,'发展中国家和地区'],
+[177400 ,0.40 ,0.03 ,0.58 ,'发展中国家和地区'],
+[173000 ,0.06 ,0.33 ,0.61 ,'发展中国家和地区'],
+[172200 ,0.06 ,0.54 ,0.40 ,'发展中国家和地区'],
+[163700 ,0.35 ,0.18 ,0.48 ,'发展中国家和地区'],
+[162500 ,0.23 ,0.29 ,0.48 ,'发展中国家和地区'],
+[153500 ,0.04 ,0.28 ,0.67 ,'发展中国家和地区'],
+[138100 ,0.13 ,0.23 ,0.63 ,'发展中国家和地区'],
+[137700 ,0.10 ,0.26 ,0.64 ,'发展中国家和地区'],
+[137000 ,0.04 ,0.23 ,0.73 ,'发展中国家和地区'],
+[134000 ,0.18 ,0.25 ,0.57 ,'发展中国家和地区'],
+[130000 ,0.01 ,0.50 ,0.49 ,'发展中国家和地区'],
+[105700 ,0.10 ,0.41 ,0.49 ,'发展中国家和地区'],
+[104100 ,0.02 ,0.16 ,0.82 ,'发展中国家和地区'],
+[103700 ,0.08 ,0.45 ,0.48 ,'发展中国家和地区'],
+[102100 ,0.04 ,0.26 ,0.70 ,'发展中国家和地区'],
+[97160 ,0.20 ,0.27 ,0.53 ,'发展中国家和地区'],
+[91470 ,0.04 ,0.29 ,0.67 ,'发展中国家和地区'],
+[89540 ,0.17 ,0.27 ,0.57 ,'发展中国家和地区'],
+[89190 ,0.28 ,0.21 ,0.51 ,'发展中国家和地区'],
+[89000 ,0.05 ,0.29 ,0.67 ,'发展中国家和地区'],
+[88910 ,0.18 ,0.28 ,0.55 ,'发展中国家和地区'],
+[88250 ,0.04 ,0.13 ,0.83 ,'发展中国家和地区'],
+[83940 ,0.06 ,0.21 ,0.74 ,'发展中国家和地区'],
+[83720 ,0.14 ,0.38 ,0.48 ,'发展中国家和地区'],
+[79190 ,0.27 ,0.14 ,0.60 ,'发展中国家和地区'],
+[78160 ,0.06 ,0.24 ,0.70 ,'发展中国家和地区'],
+[73630 ,0.20 ,0.12 ,0.68 ,'发展中国家和地区'],
+[71170 ,0.00 ,0.39 ,0.60 ,'发展中国家和地区'],
+[69450 ,0.23 ,0.21 ,0.56 ,'发展中国家和地区'],
+[68930 ,0.08 ,0.35 ,0.57 ,'发展中国家和地区'],
+[68600 ,0.20 ,0.44 ,0.37 ,'发展中国家和地区'],
+[64210 ,0.25 ,0.33 ,0.42 ,'发展中国家和地区'],
+[61970 ,0.01 ,0.52 ,0.46 ,'发展中国家和地区'],
+[54800 ,0.17 ,0.24 ,0.59 ,'发展中国家和地区'],
+[54020 ,0.04 ,0.22 ,0.74 ,'发展中国家和地区'],
+[51170 ,0.12 ,0.28 ,0.60 ,'发展中国家和地区'],
+[50280 ,0.20 ,0.20 ,0.61 ,'发展中国家和地区'],
+[49340 ,0.21 ,0.33 ,0.46 ,'发展中国家和地区'],
+[46300 ,0.14 ,0.29 ,0.57 ,'发展中国家和地区'],
+[44830 ,0.07 ,0.29 ,0.64 ,'发展中国家和地区'],
+[42850 ,0.00 ,0.48 ,0.52 ,'发展中国家和地区'],
+[41650 ,0.03 ,0.29 ,0.68 ,'发展中国家和地区'],
+[41220 ,0.42 ,0.18 ,0.41 ,'发展中国家和地区'],
+[40000 ,0.23 ,0.48 ,0.30 ,'发展中国家和地区'],
+[39850 ,0.08 ,0.24 ,0.68 ,'发展中国家和地区'],
+[39850 ,0.24 ,0.20 ,0.56 ,'发展中国家和地区'],
+[39730 ,0.12 ,0.38 ,0.50 ,'发展中国家和地区'],
+[39010 ,0.02 ,0.28 ,0.71 ,'发展中国家和地区'],
+[37090 ,0.24 ,0.19 ,0.57 ,'发展中国家和地区'],
+[36660 ,0.05 ,0.45 ,0.50 ,'发展中国家和地区'],
+[36400 ,0.16 ,0.24 ,0.60 ,'发展中国家和地区'],
+[36010 ,0.22 ,0.24 ,0.54 ,'发展中国家和地区'],
+[35850 ,0.31 ,0.24 ,0.45 ,'发展中国家和地区'],
+[34270 ,0.12 ,0.22 ,0.66 ,'发展中国家和地区'],
+[33870 ,0.01 ,0.57 ,0.42 ,'发展中国家和地区'],
+[31780 ,0.02 ,0.13 ,0.86 ,'发展中国家和地区'],
+[31520 ,0.03 ,0.55 ,0.43 ,'发展中国家和地区'],
+[31030 ,0.11 ,0.27 ,0.63 ,'发展中国家和地区'],
+[30190 ,0.22 ,0.43 ,0.35 ,'发展中国家和地区'],
+[29390 ,0.09 ,0.51 ,0.40 ,'发展中国家和地区'],
+[28620 ,0.52 ,0.15 ,0.33 ,'发展中国家和地区'],
+[28430 ,0.29 ,0.26 ,0.46 ,'发展中国家和地区'],
+[28340 ,0.17 ,0.28 ,0.55 ,'发展中国家和地区'],
+[28270 ,0.04 ,0.22 ,0.74 ,'发展中国家和地区'],
+[27970 ,0.20 ,0.32 ,0.48 ,'发展中国家和地区'],
+[26600 ,0.07 ,0.26 ,0.67 ,'发展中国家和地区'],
+[26060 ,0.07 ,0.21 ,0.72 ,'发展中国家和地区'],
+[25390 ,0.26 ,0.23 ,0.51 ,'发展中国家和地区'],
+[24680 ,0.31 ,0.18 ,0.52 ,'发展中国家和地区'],
+[23720 ,0.18 ,0.20 ,0.62 ,'发展中国家和地区'],
+[23150 ,0.15 ,0.31 ,0.54 ,'发展中国家和地区'],
+[22420 ,0.29 ,0.15 ,0.56 ,'发展中国家和地区'],
+[21860 ,0.42 ,0.20 ,0.39 ,'发展中国家和地区'],
+[20440 ,0.60 ,0.07 ,0.33 ,'发展中国家和地区'],
+[19970 ,0.22 ,0.20 ,0.58 ,'发展中国家和地区'],
+[19600 ,0.12 ,0.18 ,0.70 ,'发展中国家和地区'],
+[19260 ,0.01 ,0.10 ,0.89 ,'发展中国家和地区'],
+[17280 ,0.28 ,0.29 ,0.43 ,'发展中国家和地区'],
+[12970 ,0.29 ,0.22 ,0.50 ,'发展中国家和地区'],
+[12060 ,0.02 ,0.08 ,0.90 ,'发展中国家和地区'],
+[11600 ,0.07 ,0.45 ,0.49 ,'发展中国家和地区'],
+[11550 ,0.61 ,0.07 ,0.33 ,'发展中国家和地区'],
+[11110 ,0.01 ,0.26 ,0.72 ,'发展中国家和地区'],
+[11080 ,0.08 ,0.16 ,0.77 ,'发展中国家和地区']
+];
+
+var datafd = [
+[19490000 ,0.01 ,0.19 ,0.80 ,'发达国家和地区'],
+[5443000 ,0.01 ,0.30 ,0.69 ,'发达国家和地区'],
+[4199000 ,0.01 ,0.31 ,0.69 ,'发达国家和地区'],
+[2925000 ,0.01 ,0.20 ,0.79 ,'发达国家和地区'],
+[2856000 ,0.02 ,0.20 ,0.79 ,'发达国家和地区'],
+[2317000 ,0.02 ,0.24 ,0.74 ,'发达国家和地区'],
+[2035000 ,0.02 ,0.39 ,0.58 ,'发达国家和地区'],
+[1778000 ,0.03 ,0.23 ,0.74 ,'发达国家和地区'],
+[1774000 ,0.02 ,0.28 ,0.70 ,'发达国家和地区'],
+[1248000 ,0.04 ,0.25 ,0.71 ,'发达国家和地区'],
+[924400 ,0.02 ,0.18 ,0.70 ,'发达国家和地区'],
+[528100 ,0.00 ,0.25 ,0.75 ,'发达国家和地区'],
+[523100 ,0.01 ,0.26 ,0.74 ,'发达国家和地区'],
+[518000 ,0.02 ,0.33 ,0.65 ,'发达国家和地区'],
+[441000 ,0.01 ,0.28 ,0.70 ,'发达国家和地区'],
+[381200 ,0.02 ,0.34 ,0.64 ,'发达国家和地区'],
+[375900 ,0.02 ,0.37 ,0.61 ,'发达国家和地区'],
+[353300 ,0.01 ,0.39 ,0.60 ,'发达国家和地区'],
+[317100 ,0.02 ,0.27 ,0.70 ,'发达国家和地区'],
+[314100 ,0.02 ,0.22 ,0.76 ,'发达国家和地区'],
+[299300 ,0.04 ,0.17 ,0.79 ,'发达国家和地区'],
+[287800 ,0.01 ,0.23 ,0.76 ,'发达国家和地区'],
+[244900 ,0.03 ,0.28 ,0.69 ,'发达国家和地区'],
+[189000 ,0.06 ,0.22 ,0.73 ,'发达国家和地区'],
+[179700 ,0.04 ,0.35 ,0.61 ,'发达国家和地区'],
+[71230 ,0.02 ,0.32 ,0.66 ,'发达国家和地区'],
+[62110 ,0.00 ,0.13 ,0.87 ,'发达国家和地区'],
+[18180 ,0.06 ,0.20 ,0.75 ,'发达国家和地区'],
+[529200 ,0.01 ,0.22 ,0.77 ,'发达国家和地区']
+];
+
+var datazg = [
+    [23210000,0.08,0.41,0.52,'发展中国家和地区']
+    ]
+
+
+var schema = [
+    {name: 'GDP', index: 0, text: 'GDP'},
+    {name: '第一产业', index: 1, text: '第一产业'},
+    {name: '第二产业', index: 2, text: '第二产业'},
+    {name: '第三产业', index: 3, text: '第三产业'},
+    {name: '国家类型', index: 4, text: ' 国家类型'}
+];
+
+var lineStyle = {
+    normal: {
+        width: 1,
+        opacity:0.1
+    }
+};
+
+option = {
+    color: [
+        '#ca8622','#546570','#ca8622'
+    ],
+    legend: {
+        top: 10,
+        data: ['发展中国家和地区', '发达国家和地区','中国'],
+        itemGap: 20
+    },
+    parallelAxis: [
+        {dim: 0, name: schema[0].text},
+        {dim: 1, name: schema[1].text},
+        {dim: 2, name: schema[2].text},
+        {dim: 3, name: schema[3].text},
+        {dim: 4, name: schema[4].text,type: 'category', data: ['发展中国家和地区','发达国家和地区']}
+    ],
+    parallel: {
+        left: '5%',
+        right: '13%',
+        bottom: '10%',
+        top: '20%',
+        parallelAxisDefault: {
+            type: 'value',
+            name: 'agri',
+            nameLocation: 'end',
+            nameTextStyle: {
+                fontSize: 12
+            }
+        }
+    },
+    series: [
+        {
+            name: '发展中国家和地区',
+            type: 'parallel',
+            lineStyle: lineStyle,
+            data: datafz
+        },
+        {
+            name: '发达国家和地区',
+            type: 'parallel',
+            lineStyle: {
+                normal: {
+                    width: 1,
+                    opacity:0.3}
+                },
+            data: datafd
+        },
+        {
+            name: '中国',
+            type: 'parallel',
+            lineStyle: {
+                normal: {
+                    width: 2,
+                    opacity:1
+                    
+                }
+            },
+            data: datazg
+        }
+    ]
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+</body>
+
+</html>
